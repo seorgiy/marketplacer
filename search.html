@@ -1,0 +1,31 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="search.css">
+	<meta charset="UTF-8">
+</head>
+
+<body >
+
+
+
+<div style='width:400px;display:flex;gap:10px;flex-direction:column;'>
+	<label>Ищем</label><input id="search" style='margin-bottom:6px;'autofocus />
+	<label>Минимальная цена для отсеивания скама на озоне/ягодах</label><input value=1000 id="min_value" type=number style='margin-bottom:6px;' />
+	<!-- <div style='display: flex;'><label>Включая Ozon Global</label><input id='ozon_global' type='checkbox' checked=true></input></div> -->
+  <button id="go">Найти </button>
+</div>
+
+<table id="items_table" style="width:50%">
+  <tr class="static">
+    <th>Магазин</th>
+    <th>Название</th>
+    <th>Цена</th>
+    <th>Доставка</th>
+    <th></th>
+  </tr>
+</table>
+
+<script src="search.js"></script>
+</body>
+</html>

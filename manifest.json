@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "Маркетплейсер",
+  "description": "Показывает цену за килограмм/литр в выдаче товаров на маркетплейсе www.ozon.ru, если вес товара указан в описании",
+  "version": "0.1",
+  "author": {
+    "name": "Seorgiy",
+    "email": "george.sergeev2014@gmail.com"
+   },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "action": {},
+  "host_permissions": [
+    "https://www.dns-shop.ru/*",
+    "https://www.ozon.ru/*",
+    "https://market.yandex.ru/*",
+    "https://www.wildberries.ru/*",
+    "https://megamarket.ru/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.dns-shop.ru/*",
+        "https://market.yandex.ru/search?text=*",
+        "https://www.ozon.ru/*",
+        "https://www.wildberries.ru/*",
+        "https://megamarket.ru/*"
+      ],
+      "js": ["lib/messenger.js","lib/item.js"]
+    },
+    {
+      "matches": [
+        "https://www.dns-shop.ru/*"],
+      "js": ["markets/dns.js"]
+    },
+    {
+      "matches": [
+        "https://www.ozon.ru/*"],
+      "js": ["markets/ozon.js"]
+    },
+    {
+      "matches": [
+        "https://www.wildberries.ru/*"],
+      "js": ["markets/wildberries.js"]
+    },
+    {
+      "matches": [
+        "https://megamarket.ru/*"],
+      "js": ["markets/megamarket.js"]
+    }
+  ],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs"
+  ]
+}
