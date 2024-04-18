@@ -2,7 +2,7 @@ var items = []
 
 const search = () => {
   let nodes = document.querySelectorAll('.product-card-list > .product-card')
-  if (document.querySelector('.searching-results > p').innerText.match('ничего') != null) return window.close()
+  if (document.querySelector('.searching-results > p').innerText.match('ничего') != null) return finish([])
 
   for (let i=0;i<nodes.length;i++) {
     if (items.length > 9) return finish(items)
@@ -17,6 +17,5 @@ const search = () => {
     items.push(item)
   }
 
-  sendItemsToBack(items)
-  setTimeout(window.close,2000);
+  return finish(items.slice(0,10))
 }

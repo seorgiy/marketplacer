@@ -1,43 +1,61 @@
 var items = []
-console.log('mega')
+var itemsObserver
+var sendItemTimer
 
 const collect = () => {
-  let nodes = document.querySelectorAll('.catalog-item')
+  try {
+    if (document.querySelector('.catalog-listing-controls input')?.value == 'Лучшее совпадение' && location.hash.includes('sort=1')) return
+    if (document.querySelector('.catalog-listing-controls span')?.innerText == 'Лучшее совпадение'&& location.hash.includes('sort=1')) return
+  
+    let nodes = document.querySelectorAll('div[data-product-id]')
 
-  for (let i=0;i<nodes.length;i++) {
-    if (items.length > 9) return finish(items)
+    for (let i=0;i<nodes.length;i++) {
+      if (items.length > 9) return megaFinish(items)
+      if (nodes[i].className.includes('catalog-item_out-of-stock')) continue;
 
-    let item = new Item(
-      nodes[i].querySelector('.item-title > a')?.innerText,
-      nodes[i].querySelector('.item-price > span')?.innerText, 
-      nodes[i].querySelector('.item-title > a')?.href,
-      'Мегамаркет',
-      nodes[i].querySelector('.catalog-item-delivery__text')?.innerText
-    )
-    items.push(item)
+      let item = new Item(
+        nodes[i].querySelector('.item-title > a')?.innerText,
+        nodes[i].querySelector('.item-price > span')?.innerText, 
+        nodes[i].querySelector('.item-title > a')?.href,
+        'Мегамаркет',
+        nodes[i].querySelector('.catalog-item-delivery__text')?.innerText,
+        { cashback: parseInt(nodes[i].querySelector('.bonus-amount')?.innerText.replaceAll(new RegExp(/\s/g),'')  ?? 0, 10) }
+      )
+
+
+      items.push(item)
+    }
+
+    return megaFinish(items)
   }
-
-  return finish(items)
+  catch(e){}
 }
 
-const observe = (mutations) => { 
+const megaFinish = (items) => {
+  clearInterval(sendItemTimer);
+  return finish(items.slice(0,10))
+}
 
+const collectWithDelay = () =>{
+  sendItemTimer = setInterval(collect, 1000); 
+}
+
+const observe = (mutations) => {
   for(let mutation of mutations) {
-    console.log(mutation?.addedNodes)
+    if (mutation?.addedNodes[0]?.tagName == 'IFRAME' && sendItemTimer == undefined){
+      itemsObserver.disconnect()
+      setTimeout(collectWithDelay,1000)
+    }
   }
- }
+}
 
 const search = () => {
-  // let itemsObserver = new MutationObserver(observe);
-  // let config = {
-  //   childList: true,
-  //   subtree: true,
-  //   // characterData: true
-  // }
-  // let container = document.getElementsByTagName('body')[0]
-  // itemsObserver.observe(container, config);
-  // console.log(items)
-  // sendItemsToBack(items)
-  // setTimeout(window.close,2000);
-  setTimeout(collect, 400)
+  itemsObserver = new MutationObserver(observe);
+  let config = {
+    childList: true,
+    subtree: true,
+    characterData: true
+  }
+
+  itemsObserver.observe(document.querySelector('html'), config);
 }

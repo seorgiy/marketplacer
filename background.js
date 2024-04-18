@@ -20,8 +20,7 @@ const pushItems = (items) => {
 }
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, _sendResponse) {
-    console.log(request['value'])
+  function(request, sender, sendResponse) {
     if (request['command'] == 'set_window_id') {
       search_tab_id = sender.tab.id
       search_window_id = request['value']
@@ -29,6 +28,8 @@ chrome.runtime.onMessage.addListener(
       chrome.windows.update(search_window_id, { focused: true })
      }
     if (request['command'] == 'push_items') pushItems(request['value'])
+    if (request['command'] == 'close_me') chrome.tabs.remove(sender.tab.id)
+    if (request['command'] == 'may_i_search?') sendResponse(sender.tab.windowId == search_window_id)
   }
 );
 
@@ -37,3 +38,11 @@ const updatedTab = (_tabId, changeInfo, tab) => {
 }
 
 chrome.tabs.onUpdated.addListener(updatedTab)
+
+//   Object.keys(window).filter(key => { return !key.includes('mouse') }).forEach(key => {
+//     if (/^on/.test(key)) {
+//         window.addEventListener(key.slice(2), event => {
+//             console.log(event);
+//         });
+//     }
+// });

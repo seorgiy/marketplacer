@@ -1,12 +1,13 @@
 var items = []
 
 const collect = () => {
-  let nodes = document.querySelectorAll('#paginatorContent [href*="product"]:not([data-prerender]')
+  let nodes = document.querySelectorAll('#paginatorContent .widget-search-result-container [href*="product"]:not([data-prerender]')
   for (let i=0;i<nodes.length;i++) {
     if (items.length > 9) return finish(items)
 
-    console.log(nodes[i])
     let card = nodes[i].parentNode.parentNode.parentNode
+    if (card.querySelector("div[title='Нет в наличии']") != null) continue
+
     let item = new Item(
       nodes[i]?.innerText,
       card.innerHTML.match(/[0-9\s]+.₽/)[0],
@@ -17,21 +18,11 @@ const collect = () => {
     items.push(item)
   }
 
-  return finish(items)
+  return finish(items.slice(0,10))
 }
 
-const observe = (mutations) => { return collect() }
-const checkIfNoLoading = () => {
-  console.log('check')
-   if (document.getElementById('paginatorContent').childElementCount == 1) return collect()
-   }
+const search = () => {}
 
-const search = () => {
-  let itemsObserver = new MutationObserver(observe);
-  let config = { childList: true }
-  let container = document.getElementById('paginatorContent')
-  itemsObserver.observe(container, config);
-  setTimeout(checkIfNoLoading, 300)
-
-console.log('ozon')
-}
+window.addEventListener('load', event => {
+  chrome.runtime.sendMessage({ command: 'may_i_search?' }).then(response => { if (response) collect() })
+});

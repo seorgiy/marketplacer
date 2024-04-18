@@ -1,10 +1,7 @@
-body {
-	display: flex;
-	height: 25px;
-	flex-direction: column;
-	justify-content: space-around;
+th:not(.no-sort){
+  cursor: pointer;
 }
 
-#search {
-	width: 100%
+table:has(> tbody:empty) {
+  display: none;
 }

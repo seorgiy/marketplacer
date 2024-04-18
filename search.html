@@ -1,31 +1,98 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="search.css">
+  <link rel="stylesheet" href="simple.min.css">
+  <link rel="stylesheet" href="search.css">
 	<meta charset="UTF-8">
 </head>
 
-<body >
+<body style='display: flex; flex-direction: column;' >
 
 
+<div style='display:flex;gap:10px;flex-direction:column;padding:20px'>
+  <div style='display:flex'>
+    <div style="width:30%">
+      <label>Ищем</label><input id="search" style='margin-bottom:6px;' autocomplete  autofocus />
+      <label>Минимальная цена</label><input value=1000 id="min_value" min=0 type=number style='margin-bottom:6px;' />
+      <span style='display:flex;width:fit-content;'><label style='margin-right: 19px;'>Автозакрытие вкладок</label><input id='auto_close_input' type='checkbox' style='margin:auto' /></span>
+    </div>
+    <div id='market_options' style="width:70%;display:flex;gap:10px;flex-wrap: wrap;">
+      <span>Озон
+      <select name='ozon'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
+    <span>ДНС
+      <select name='dns'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
+      <span>Яндекс
+      <select name='yandex'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
+      <span>AliExpress
+      <select name='aliexpress'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
+      <span>Мегамаркет
+      <select name='megamarket'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
+      <span>Wildberries
+      <select name='wildberries'>
+        <option value='price'>Цена</option>
+        <option value='popularity'>Популярность</option>
+        <option value='off'>Выкл</option>
+      </select>
+    </span>
 
-<div style='width:400px;display:flex;gap:10px;flex-direction:column;'>
-	<label>Ищем</label><input id="search" style='margin-bottom:6px;'autofocus />
-	<label>Минимальная цена для отсеивания скама на озоне/ягодах</label><input value=1000 id="min_value" type=number style='margin-bottom:6px;' />
-	<!-- <div style='display: flex;'><label>Включая Ozon Global</label><input id='ozon_global' type='checkbox' checked=true></input></div> -->
-  <button id="go">Найти </button>
+    </div>
+  </div>
+  <button id="go">Найти</button>
 </div>
 
-<table id="items_table" style="width:50%">
-  <tr class="static">
-    <th>Магазин</th>
-    <th>Название</th>
-    <th>Цена</th>
-    <th>Доставка</th>
-    <th></th>
-  </tr>
-</table>
+
+<div class="table-wrap" style='display: flex;justify-content: center;'><table style='width:80%;padding:20px' id="items_table" class="sortable">
+  <thead>
+    <tr class="static">
+      <th aria-sort="ascending">
+          <span>Магазин</span>
+          <span aria-hidden="true"></span>
+      </th>
+      <th aria-sort="ascending">
+          <span>Название</span>
+          <span aria-hidden="true"></span>
+      </th>
+      <th aria-sort="ascending" class="sort_by_price">
+          <span>Цена</span>
+          <span aria-hidden="true"></span>
+      </th>
+      <th aria-sort="ascending"  class="sort_by_date">
+          <span>Доставка</span>
+          <span aria-hidden="true"></span>
+      </th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table></div>
 
 <script src="search.js"></script>
+<script src="sort.js"></script>
+<script src="options.js"></script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Маркетплейсер",
-  "description": "Показывает цену за килограмм/литр в выдаче товаров на маркетплейсе www.ozon.ru, если вес товара указан в описании",
-  "version": "0.1",
+  "description": "Сравнивает цены на товар на российских площадках",
+  "version": "1.5",
   "author": {
     "name": "Seorgiy",
     "email": "george.sergeev2014@gmail.com"
@@ -22,7 +22,8 @@
     "https://www.ozon.ru/*",
     "https://market.yandex.ru/*",
     "https://www.wildberries.ru/*",
-    "https://megamarket.ru/*"
+    "https://megamarket.ru/*",
+    "https://aliexpress.ru/*"
   ],
   "content_scripts": [
     {
@@ -31,7 +32,8 @@
         "https://market.yandex.ru/search?text=*",
         "https://www.ozon.ru/*",
         "https://www.wildberries.ru/*",
-        "https://megamarket.ru/*"
+        "https://megamarket.ru/*",
+        "https://aliexpress.ru/*"
       ],
       "js": ["lib/messenger.js","lib/item.js"]
     },
@@ -54,11 +56,20 @@
       "matches": [
         "https://megamarket.ru/*"],
       "js": ["markets/megamarket.js"]
+    },
+    {
+      "matches": [
+        "https://market.yandex.ru/*"],
+      "js": ["markets/yandex.js"]
+    },
+    {
+      "matches": [
+        "https://aliexpress.ru/*"],
+      "js": ["markets/aliexpress.js"]
     }
   ],
   "permissions": [
-    "scripting",
-    "activeTab",
+    "storage",
     "tabs"
   ]
 }
