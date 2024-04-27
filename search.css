@@ -5,3 +5,31 @@ th:not(.no-sort){
 table:has(> tbody:empty) {
   display: none;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+select {
+  width: 100px
+}
+
+.market_box {
+  display: flex;
+  flex-direction: column;
+  border: 4px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.summ {
+  margin: 0
+}

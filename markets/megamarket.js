@@ -10,14 +10,14 @@ const collect = () => {
     let nodes = document.querySelectorAll('div[data-product-id]')
 
     for (let i=0;i<nodes.length;i++) {
-      if (items.length > 9) return megaFinish(items)
+      if (items.length > ITEMS_LIMIT) return megaFinish(items)
       if (nodes[i].className.includes('catalog-item_out-of-stock')) continue;
 
       let item = new Item(
         nodes[i].querySelector('a[data-product-id][title]')?.innerText,
         nodes[i].querySelector('.item-price > span , .catalog-item-regular-desktop__price')?.innerText, 
         nodes[i].querySelector('a[data-product-id][title]')?.href,
-        'Мегамаркет',
+        'megamarket',
         nodes[i].querySelector('.catalog-item-delivery__text')?.innerText,
         { cashback: parseInt(nodes[i].querySelector('.bonus-amount')?.innerText?.replaceAll(new RegExp(/\s/g),'')  ?? 0, 10) }
       )
@@ -33,7 +33,7 @@ const collect = () => {
 
 const megaFinish = (items) => {
   clearInterval(sendItemTimer);
-  return finish(items.slice(0,10))
+  return finish(items.slice(0,ITEMS_LIMIT))
 }
 
 const collectWithDelay = () =>{

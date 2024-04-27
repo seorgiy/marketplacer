@@ -2,8 +2,9 @@ var items = []
 
 const collect = () => {
   let nodes = document.querySelectorAll('#paginatorContent .widget-search-result-container [href*="product"]:not([data-prerender]')
+  console.log(nodes)
   for (let i=0;i<nodes.length;i++) {
-    if (items.length > 9) return finish(items)
+    if (items.length > ITEMS_LIMIT) return finish(items)
 
     let card = nodes[i].parentNode.parentNode.parentNode
     if (card.querySelector("div[title='Нет в наличии']") != null) continue
@@ -12,17 +13,18 @@ const collect = () => {
       nodes[i]?.innerText,
       card.innerHTML.match(/[0-9\s]+.₽/)[0],
       nodes[i]?.href,
-      'Ozon',
+      'ozon',
       card.querySelector('button.b200-b5 > div:has(>svg) > div')?.innerText
     )
     items.push(item)
   }
 
-  return finish(items.slice(0,10))
+  return finish(items.slice(0,ITEMS_LIMIT))
 }
 
 const search = () => {}
 
 window.addEventListener('load', event => {
-  chrome.runtime.sendMessage({ command: 'may_i_search?' }).then(response => { if (response) collect() })
+  console.log(event)
+  chrome.runtime.sendMessage({ command: 'may_i_search?' }).then(response => { if (response) setTimeout(collect,2000) })
 });

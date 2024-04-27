@@ -10,57 +10,13 @@
 
 
 <div style='display:flex;gap:10px;flex-direction:column;padding:20px'>
-  <div style='display:flex'>
-    <div style="width:30%">
+  <div style='display:flex;gap:20px;'>
+    <div style="width:20%">
       <label>Ищем</label><input id="search" style='margin-bottom:6px;' autocomplete  autofocus />
       <label>Минимальная цена</label><input value=1000 id="min_value" min=0 type=number style='margin-bottom:6px;' />
       <span style='display:flex;width:fit-content;'><label style='margin-right: 19px;'>Автозакрытие вкладок</label><input id='auto_close_input' type='checkbox' style='margin:auto' /></span>
     </div>
-    <div id='market_options' style="width:70%;display:flex;gap:10px;flex-wrap: wrap;">
-      <span>Озон
-      <select name='ozon'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-    <span>ДНС
-      <select name='dns'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-      <span>Яндекс
-      <select name='yandex'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-      <span>AliExpress
-      <select name='aliexpress'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-      <span>Мегамаркет
-      <select name='megamarket'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-      <span>Wildberries
-      <select name='wildberries'>
-        <option value='price'>Цена</option>
-        <option value='popularity'>Популярность</option>
-        <option value='off'>Выкл</option>
-      </select>
-    </span>
-
-    </div>
+    <div id='market_options' style="width:80%;display:flex;gap:10px;flex-wrap: wrap;"></div>
   </div>
   <button id="go">Найти</button>
 </div>
@@ -75,11 +31,15 @@
       </th>
       <th aria-sort="ascending">
           <span>Название</span>
+          <!-- <label>Фильтр</label><input id="filter" /> -->
           <span aria-hidden="true"></span>
       </th>
       <th aria-sort="ascending" class="sort_by_price">
-          <span>Цена</span>
+          <span>Итого</span>
           <span aria-hidden="true"></span>
+      </th>
+      <th class="no-sort">
+          <span>С учётом кешбэка</span>
       </th>
       <th aria-sort="ascending"  class="sort_by_date">
           <span>Доставка</span>

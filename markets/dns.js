@@ -11,14 +11,14 @@ const collect = () => {
             node.querySelector('.catalog-product__name > span').innerText,
             node.querySelector('.product-buy__price').innerText,
             node.querySelector('[href]').href,
-            'ДНС',
+            'dns',
             node.querySelector('.delivery-info-widget__button')?.innerText
       )
       items.push(item)
     }
 
     clearInterval(sendItemTimer);
-    return finish(items.slice(0,10))
+    return finish(items.slice(0,ITEMS_LIMIT))
   }
   catch(e){}
 }
