@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		let container = document.getElementById('market_options')
 		for (const [key, value] of Object.entries(config)) {
-			let market_options = options[key] ?? ['price', '1']
+			let market_options = options[key] ?? ['popularity', '1']
       let box = document.createElement("div");
 			box.className = 'market_box'
 			box.id =  key + '_option'

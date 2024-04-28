@@ -7,7 +7,7 @@ const collect = () => {
 
     let item = new Item(
       nodes[i].querySelector('div[title]')?.title,
-      nodes[i].querySelector('.red-snippet_RedSnippet__priceNew__ufq8j .red-snippet_RedSnippet__overflowWrap__ufq8j span')?.innerText,
+      nodes[i].innerHTML.match(/[0-9\s]+.₽/)[0],
       nodes[i].querySelector('a').href,
       'aliexpress',
       nodes[i].querySelector('.red-snippet_RedSnippet__deliveryItem__ufq8j > span')?.innerText
@@ -18,6 +18,8 @@ const collect = () => {
    return finish(items)
 }
 
-const search = () => {
-  collect()
-}
+const search = () => {}
+
+window.addEventListener('load', event => {
+  chrome.runtime.sendMessage({ command: 'may_i_search?' }).then(response => { if (response) setTimeout(collect,2000) })
+});
