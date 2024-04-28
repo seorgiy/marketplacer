@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Маркетплейсер",
   "description": "Сравнивает цены на товар на российских площадках",
-  "version": "1.7",
+  "version": "1.8",
   "author": {
     "name": "Seorgiy",
     "email": "george.sergeev2014@gmail.com"
